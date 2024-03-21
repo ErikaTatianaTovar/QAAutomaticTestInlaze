@@ -1,0 +1,27 @@
+{
+  "name": "qa_test_inlaze",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ErikaTatianaTovar/QAAutomaticTestInlaze.git"
+  },
+  "keywords": [
+    "cypress",
+    "testing",
+    "inlaze"
+  ],
+  "author": "erika tovar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ErikaTatianaTovar/QAAutomaticTestInlaze/issues"
+  },
+  "homepage": "https://github.com/ErikaTatianaTovar/QAAutomaticTestInlaze#readme",
+  "devDependencies": {
+    "cypress": "^13.7.0"
+  }
+}
