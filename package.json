@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cypress open"
+    "test": "cypress open --browser chrome --e2e"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,8 @@
   "homepage": "https://github.com/ErikaTatianaTovar/QAAutomaticTestInlaze#readme",
   "devDependencies": {
     "cypress": "^13.7.0"
+  },
+  "dependencies": {
+    "prettier": "^3.2.5"
   }
 }
