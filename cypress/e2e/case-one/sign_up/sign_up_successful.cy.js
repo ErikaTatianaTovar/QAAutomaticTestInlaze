@@ -1,4 +1,4 @@
-describe('Login', () => {
+describe('Sign up successful', () => {
   beforeEach(() => {
       cy.visit('/auth/sign-up');
   });
