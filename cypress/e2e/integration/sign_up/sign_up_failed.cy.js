@@ -1,14 +1,16 @@
-describe('Login', () => {
+describe('Sign up failed', () => {
 	beforeEach(() => {
 		cy.visit('/auth/sign-up')
 	})
 
 	it('the form should not send if all the fields obligatory are completed', ()=> {
+        // Given
         const fullName = 'mario castro';
         const email ='mario.@gmail.com';
         const password = 'Mario1+';
         const confirmPassword = 'Mario1+';
 
+        // When & Then
         validateIfDisabledTheButtonSubmit('', '', '' , '');
         validateIfDisabledTheButtonSubmit('', email, password, confirmPassword);
         validateIfDisabledTheButtonSubmit(fullName, '', password, confirmPassword);
@@ -21,10 +23,12 @@ describe('Login', () => {
     });
 
     it('should have min 2 words reference to first name and last name in one field', ()=> {
+        // Given
         const email ='mario.@gmail.com';
         const password = 'Mario1+';
         const confirmPassword = 'Mario1+';
 
+        // When & Then
         validateIfDisabledTheButtonSubmit('', email, password, confirmPassword);
         validateIfDisabledTheButtonSubmit('a', email, password, confirmPassword);
         validateIfDisabledTheButtonSubmit('an', email, password, confirmPassword);
@@ -48,10 +52,12 @@ describe('Login', () => {
     }); 
 
     it('email should have a structure of a direction email', () => {
+        // Given
         const fullName = 'mario castro';
         const password = 'Mario1+';
         const confirmPassword = 'Mario1+';
 
+        // When & Then
         validateIfDisabledTheButtonSubmit(fullName, '', password, confirmPassword);
         validateIfEnabledTheButtonSubmit(fullName, 'mario@gmail.com', password, confirmPassword);
         validateIfEnabledTheButtonSubmit(fullName, 'm', password, confirmPassword);// error validation
@@ -69,9 +75,11 @@ describe('Login', () => {
     });
 
     it('password should have min of 8 characters with one capital letter, one lower case letter one number and one special character', () => {
+        // Given
         const fullName = 'mario castro';
         const email = 'mario.@gmail.com';
 
+        // When & Then
         validateIfDisabledTheButtonSubmit(fullName, email, "Mario", "Mario");
         validateIfDisabledTheButtonSubmit(fullName, email, "mario1", "mario1");
         validateIfDisabledTheButtonSubmit(fullName, email, "Mario$$$$", "Mario$$$$");
@@ -92,9 +100,12 @@ describe('Login', () => {
     });
 
 	it('The password should be entered twice and hould inform the user if it matches in both fields', () => {
-		const fullName = 'mario castro'
+		// Given
+        const fullName = 'mario castro'
 		const email = 'mario.@gmail.com'
-		validateIfPasswordAndConfirmPasswordAreEqual(fullName, email, '', '')
+		
+        // When & Then
+        validateIfPasswordAndConfirmPasswordAreEqual(fullName, email, '', '')
 		validateIfPasswordAndConfirmPasswordAreEqual(
 			fullName,
 			email,
@@ -121,32 +132,6 @@ describe('Login', () => {
 		)
 	})
 
-	it('The password should be entered twice and hould inform the user if it matches in both fields', () => {
-		validateIfErrorMessageIsVisible(
-			'mario castro',
-			'mario.@gmail.com',
-			'Password123!',
-			'Differentpassword1?'
-		)
-		validateIfErrorMessageIsVisible(
-			'mario castro',
-			'mario.@gmail.com',
-			'',
-			'Password123!'
-		)
-		validateIfErrorMessageIsVisible(
-			'mario castro',
-			'mario.@gmail.com',
-			'Password123!',
-			''
-		)
-		validateIfErrorMessageIsVisible(
-			'mario castro',
-			'mario.@gmail.com',
-			'Password123!',
-			'Password123!'
-		)
-	})
 })
 
 function validateIfPasswordAndConfirmPasswordAreEqual(
@@ -252,4 +237,3 @@ function validate(fullName, email, password, confirmPassword) {
         cy.get('.join > #confirm-password').type(confirmPassword)
     }
 }
-

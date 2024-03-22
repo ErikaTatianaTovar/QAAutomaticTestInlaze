@@ -4,24 +4,29 @@ describe('Login', () => {
   });
 
   it('should display error message for incorrect email', () => {
+    // Given
     const password = 'Maria1.';
     const messageUserNotFound = 'User not found';
 
+    // When & Then
     validateErrorMessage('incorrect@correo.com', password, messageUserNotFound);
   });
 
   it('should display error message for incorrect password', () => {
+    // Given
     const email = 'maria@gmail.com';
     const messagePassword = 'Password doesn\'t match';
 
+    // When & Then
     validateErrorMessage(email, 'Incorrect2!', messagePassword);
   });
 
   it('should disable submit button without filling both fields', () => {
+    // Given
     const email = 'maria@gmail.com';
     const password = 'Maria1.';
 
-
+    // When & Then
     validateIfDisabledTheButtonSubmit('', '');
     validateIfDisabledTheButtonSubmit(email, '');
     validateIfDisabledTheButtonSubmit('', password);
@@ -30,8 +35,10 @@ describe('Login', () => {
   });
 
   it('should disable the submit button if the email field is empty or incorrect', () => {
+    // Given
     const password = 'Maria1.';
 
+     // When & Then
     validateIfDisabledTheButtonSubmit('', password);
     validateIfEnabledTheButtonSubmit('maria', password);//error validation
     validateIfEnabledTheButtonSubmit('maria@', password);//error validation
@@ -46,8 +53,10 @@ describe('Login', () => {
   });
 
   it('should disable the submit button if the password field is empty or incorrect', () => {
+    // Given
     const email = 'maria@gmail.com';
 
+     // When & Then
     validateIfDisabledTheButtonSubmit(email, '');
     validateIfDisabledTheButtonSubmit(email, 'maria');
     validateIfDisabledTheButtonSubmit(email, 'maria1');
