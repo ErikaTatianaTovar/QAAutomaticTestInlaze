@@ -86,8 +86,10 @@ describe('Login', () => {
 function validateErrorMessage(email, password, message) {
   cy.get('#email').clear();
   cy.get('.join > #password').clear();
-  cy.get('#email').click().clear().type(email);
-  cy.get('.join > #password').click().clear().type(password);
+  if (email!== '' && password !== '') {
+    cy.get('#email').clear().type(email);
+    cy.get('.join > #password').clear().type(password);
+  }
   cy.get('[type="submit"]').click();
   cy.get('app-toast > .flex').click();
   cy.get('.ml-3').should('have.text', message);
@@ -96,10 +98,9 @@ function validateErrorMessage(email, password, message) {
 function validateIfDisabledTheButtonSubmit(email, password) {
   cy.get('#email').clear();
   cy.get('.join > #password').clear();
-  if (email !== '') {
+
+  if (email!== '' && password !== '') {
     cy.get('#email').clear().type(email);
-  }
-  if (password !== '') {
     cy.get('.join > #password').clear().type(password);
   }
   cy.get('[type="submit"]').should('be.disabled');
@@ -108,11 +109,11 @@ function validateIfDisabledTheButtonSubmit(email, password) {
 function validateIfEnabledTheButtonSubmit(email, password) {
   cy.get('#email').clear();
   cy.get('.join > #password').clear();
-  if (email !== '') {
+
+  if (email!== '' && password !== '') {
     cy.get('#email').clear().type(email);
-  }
-  if (password !== '') {
     cy.get('.join > #password').clear().type(password);
   }
+  
   cy.get('[type="submit"]').should('be.enabled');
 }
