@@ -28,4 +28,22 @@ describe('Login', () => {
     cy.get('.fa-solid').click();
     cy.get('.join > #password').should('have.attr', 'type', 'password');
   });
+  it('should display success message for successful login with status 200', () => {
+    const email = 'maria@gmail.com';
+    const password = 'Maria1.';
+  
+    cy.intercept('POST', '**/api/login', (req) => {
+      req.reply({
+        statusCode: 200,
+      });
+    }).as('successfulLogin');
+  
+    cy.get('#email').clear().type(email);
+    cy.get('.join > #password').clear().type(password);
+    cy.get('[type="submit"]').click();
+  
+    cy.wait('@successfulLogin').then((interception) => {
+      expect(interception.response.statusCode).to.equal(200);
+    });
+  });  
 });

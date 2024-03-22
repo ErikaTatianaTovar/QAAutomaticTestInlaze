@@ -42,6 +42,7 @@ describe('Login', () => {
     validateIfEnabledTheButtonSubmit('@correo.com', password);//error validation
     validateIfEnabledTheButtonSubmit('maria@correo.com', password);//error validation
     validateIfEnabledTheButtonSubmit('15165', password);//error validation
+    validateIfEnabledTheButtonSubmit(':;:¨[[´´{´', password);//error validation
   });
 
   it('should disable the submit button if the password field is empty or incorrect', () => {
@@ -61,6 +62,25 @@ describe('Login', () => {
     validateIfDisabledTheButtonSubmit(email, '1515.!');
     validateIfEnabledTheButtonSubmit(email, 'Maria1.');
   });
+
+  it('should display error message for failed login with status 401', () => {
+    const email = 'maria@gmail.com';
+    const password = 'Inc0rrect!';
+  
+    cy.intercept('POST', '**/api/login', (req) => {
+      req.reply({
+        statusCode: 401
+      });
+    }).as('failedLogin');
+  
+    cy.get('#email').clear().type(email);
+    cy.get('.join > #password').clear().type(password);
+    cy.get('[type="submit"]').click();
+  
+    cy.wait('@failedLogin').then((interception) => {
+      expect(interception.response.statusCode).to.equal(401);
+    });
+  });  
 });
 
 function validateErrorMessage(email, password, message) {
